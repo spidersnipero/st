@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node { 
+    int data;
+    struct Node *next;
+    struct Node *prev;
+};
+struct Node* headm = NULL;
+void insert(struct Node* head, int data){
+    struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));
+    newnode->data = data;
+    newnode->prev = NULL;
+    if(headm==NULL){
+        headm = newnode;
+        newnode->prev = headm;
+    }
+    else{
+        while(head->next!=NULL){
+            head = head->next;
+        }
+        head->next = newnode;
+        newnode->prev = head;
+    }
+}
+void display(struct Node* node)
+{
+    printf("\nList\n");
+    while (node != NULL) {
+        printf(" %d ", node->data);
+        node = node->next;
+    }
+}
+void function(struct Node* head,int l){
+    int m,n;
+    struct Node * t = head;
+    printf("\nEnter m and n : ");
+    scanf("%d %d",&m,&n);
+    printf("\n m and n are %d ,%d \n",m,n);
+    if(m>l || n>l){
+        printf("Enter m and n : ");
+        scanf("%d %d ",&m,&n);
+    }
+    else{
+        int s = n-m+1;
+        int d[s];
+        int i;
+        for(i=2;i<=l;i++){
+            head = head->next;
+            if(i>=m && i<=n){
+                d[i-m] = head->data;
+            }
+        }
+        for(int i=0;i<s;i++){
+            head = head->prev;
+            head->data = d[i];
+        }
+    }
+}
+int main()
+{
+    
+    
+    int a;
+    printf(" enter -100 to stop\n");
+    printf("Enter :");
+    scanf("%d",&a);
+    int l = 0;
+    while(a!=-100){
+        insert(headm,a);
+        l++;
+        printf("Enter :");
+        scanf("%d",&a);
+    }
+    display(headm);
+    function(headm,l);
+    print("After exicution :\n")
+    display(headm);
+    
+    return 0;
+}
